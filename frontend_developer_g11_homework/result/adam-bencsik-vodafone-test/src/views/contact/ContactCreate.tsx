@@ -6,11 +6,15 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useSnackbar } from "notistack";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useHeader } from "../../components/Layout/HeaderContext";
-import { COLORS } from "../../shared/common/constants";
+import {
+  COLORS,
+  EMAIL_REGEX,
+  PHONE_FORMAT,
+} from "../../shared/common/constants";
 import { createContact } from "../../shared/network/user.api";
 
 const useStyles = makeStyles({
@@ -84,6 +88,7 @@ const ContactCreate = () => {
             control={form.control}
             name="firstName"
             defaultValue=""
+            rules={{ required: t("validation.required").toString() }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -103,6 +108,7 @@ const ContactCreate = () => {
             control={form.control}
             defaultValue=""
             name="lastName"
+            rules={{ required: t("validation.required").toString() }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -122,6 +128,15 @@ const ContactCreate = () => {
             control={form.control}
             defaultValue=""
             name="email"
+            rules={{
+              required: t("validation.required").toString(),
+              pattern: {
+                value: EMAIL_REGEX,
+                message: t("validation.invalidFormat", {
+                  subject: t("subject.email"),
+                }),
+              },
+            }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -141,6 +156,15 @@ const ContactCreate = () => {
             control={form.control}
             defaultValue=""
             name="phone"
+            rules={{
+              required: t("validation.required").toString(),
+              pattern: {
+                value: PHONE_FORMAT,
+                message: t("validation.invalidFormat", {
+                  subject: t("subject.phone"),
+                }),
+              },
+            }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}
@@ -160,6 +184,7 @@ const ContactCreate = () => {
             control={form.control}
             defaultValue=""
             name="address"
+            rules={{ required: t("validation.required").toString() }}
             render={({ field, fieldState }) => (
               <TextField
                 {...field}

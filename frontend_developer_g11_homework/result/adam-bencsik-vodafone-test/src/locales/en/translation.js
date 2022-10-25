@@ -48,4 +48,9 @@ export const TRANSLATIONS_EN = {
       },
     },
   },
+  validation: {
+    required: "Please fill this field to continue!",
+    invalidFormat: "Invalid {{subject}} format!",
+  },
+  subject: { email: "e-mail", phone: "phone" },
 };
